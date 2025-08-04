@@ -19,7 +19,9 @@ export const userRelations = relations(users, ({ many }) => ({
 }));
 export const zaps = pgTable("zaps", {
   id: uuid("id").notNull().primaryKey(),
-  userId: serial("user_Id").references(() => users.id),
+  userId: serial("user_Id")
+    .notNull()
+    .references(() => users.id),
   triggerId: uuid("trigger_id"),
 });
 export const zapsRelations = relations(zaps, ({ one, many }) => ({
@@ -59,16 +61,16 @@ export const actions = pgTable("actions", {
     .references(() => zaps.id),
   actionId: uuid("action_id")
     .notNull()
-    .references(() => avaiableActions.id),
+    .references(() => availableActions.id),
 });
 
-export const avaiableActions = pgTable("available_actions", {
+export const availableActions = pgTable("available_actions", {
   id: uuid("id").notNull().primaryKey(),
   name: text(),
 });
 
 export const avaiableActionsRelation = relations(
-  avaiableActions,
+  availableActions,
   ({ many }) => ({
     actions: many(actions),
   }),
@@ -84,7 +86,7 @@ export const zapRuns = pgTable("zap_runs", {
 export const zapRunRelation = pgTable("zap_run_relations", {
   id: uuid("id").notNull().primaryKey(),
 });
-export const zapRunOutBoxs = pgTable("zap_run_out_boxs", {
+export const zapRunOutBoxes = pgTable("zap_run_out_boxs", {
   id: uuid().notNull().primaryKey(),
   zapRunId: uuid("zap_run_id")
     .notNull()
