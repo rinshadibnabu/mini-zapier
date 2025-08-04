@@ -37,7 +37,7 @@ export const triggers = pgTable("triggers", {
   zapId: uuid("zap_id")
     .notNull()
     .references(() => zaps.id),
-  triggerId: uuid("trigger_id")
+  triggerId: uuid("selected_trigger_id")
     .notNull()
     .references(() => availableTriggers.id),
 });

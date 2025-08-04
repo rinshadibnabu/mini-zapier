@@ -5,5 +5,5 @@
     "module": "nodenext",
     "outDir": "./dist"
   },
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["dist", "node_modules", "./src/seed.ts"]
 }
