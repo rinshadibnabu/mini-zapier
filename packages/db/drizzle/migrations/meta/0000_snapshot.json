@@ -1,5 +1,5 @@
 {
-  "id": "18197d1d-788c-40df-89fc-5a92db95939a",
+  "id": "262da41b-84eb-4feb-8cd2-568069f5b106",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12,7 +12,8 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "zap_id": {
           "name": "zap_id",
@@ -70,7 +71,8 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -95,7 +97,8 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "name": {
           "name": "name",
@@ -120,7 +123,8 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "zap_id": {
           "name": "zap_id",
@@ -128,8 +132,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "trigger_id": {
-          "name": "trigger_id",
+        "selected_trigger_id": {
+          "name": "selected_trigger_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
@@ -150,12 +154,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "triggers_trigger_id_available_triggers_id_fk": {
-          "name": "triggers_trigger_id_available_triggers_id_fk",
+        "triggers_selected_trigger_id_available_triggers_id_fk": {
+          "name": "triggers_selected_trigger_id_available_triggers_id_fk",
           "tableFrom": "triggers",
           "tableTo": "available_triggers",
           "columnsFrom": [
-            "trigger_id"
+            "selected_trigger_id"
           ],
           "columnsTo": [
             "id"
@@ -202,6 +206,99 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.zap_run_out_boxs": {
+      "name": "zap_run_out_boxs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "zap_run_id": {
+          "name": "zap_run_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "zap_run_out_boxs_zap_run_id_zap_runs_id_fk": {
+          "name": "zap_run_out_boxs_zap_run_id_zap_runs_id_fk",
+          "tableFrom": "zap_run_out_boxs",
+          "tableTo": "zap_runs",
+          "columnsFrom": [
+            "zap_run_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.zap_runs": {
+      "name": "zap_runs",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "metaData": {
+          "name": "metaData",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "zap_id": {
+          "name": "zap_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "zap_runs_zap_id_zaps_id_fk": {
+          "name": "zap_runs_zap_id_zaps_id_fk",
+          "tableFrom": "zap_runs",
+          "tableTo": "zaps",
+          "columnsFrom": [
+            "zap_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
@@ -215,7 +312,8 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "user_Id": {
           "name": "user_Id",

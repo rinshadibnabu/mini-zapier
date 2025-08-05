@@ -11,14 +11,14 @@ import {
 export const users = pgTable("users", {
   name: text(),
   id: serial("id").primaryKey(),
-  email: varchar("email", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
   password: varchar("password", { length: 255 }).notNull(),
 });
 export const userRelations = relations(users, ({ many }) => ({
   zaps: many(zaps),
 }));
 export const zaps = pgTable("zaps", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   userId: serial("user_Id")
     .notNull()
     .references(() => users.id),
@@ -33,7 +33,7 @@ export const zapsRelations = relations(zaps, ({ one, many }) => ({
   zapRuns: many(zapRuns),
 }));
 export const triggers = pgTable("triggers", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   zapId: uuid("zap_id")
     .notNull()
     .references(() => zaps.id),
@@ -43,7 +43,7 @@ export const triggers = pgTable("triggers", {
 });
 
 export const availableTriggers = pgTable("available_triggers", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   name: text("name"),
 });
 
@@ -55,7 +55,7 @@ export const availableTriggersRelation = relations(
 );
 
 export const actions = pgTable("actions", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   zapId: uuid("zap_id")
     .notNull()
     .references(() => zaps.id),
@@ -65,7 +65,7 @@ export const actions = pgTable("actions", {
 });
 
 export const availableActions = pgTable("available_actions", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   name: text(),
 });
 
@@ -77,15 +77,13 @@ export const avaiableActionsRelation = relations(
 );
 
 export const zapRuns = pgTable("zap_runs", {
-  id: uuid("id").notNull().primaryKey(),
+  id: uuid("id").notNull().primaryKey().defaultRandom(),
   metaData: json(),
   zapId: uuid("zap_id")
     .notNull()
     .references(() => zaps.id),
 });
-export const zapRunRelation = pgTable("zap_run_relations", {
-  id: uuid("id").notNull().primaryKey(),
-});
+
 export const zapRunOutBoxes = pgTable("zap_run_out_boxs", {
   id: uuid().notNull().primaryKey(),
   zapRunId: uuid("zap_run_id")

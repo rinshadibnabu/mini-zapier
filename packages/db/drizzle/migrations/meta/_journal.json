@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1754239132132,
-      "tag": "0000_medical_red_shift",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1754240025974,
-      "tag": "0001_adorable_infant_terrible",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1754278722266,
-      "tag": "0002_curvy_moonstone",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1754304864034,
-      "tag": "0003_free_nick_fury",
+      "when": 1754402694674,
+      "tag": "0000_groovy_jackal",
       "breakpoints": true
     }
   ]
